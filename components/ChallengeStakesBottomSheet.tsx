@@ -66,6 +66,10 @@ export default function ChallengeStakesBottomSheet({
 
     setIsSubmitting(true);
     try {
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
+      }
+
       const { challenge } = await client.createChallenge({
         stake,
         currency: currentMode,
