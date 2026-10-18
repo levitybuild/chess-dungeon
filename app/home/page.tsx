@@ -48,6 +48,49 @@ function HomePageContent() {
   const [historyRecords, setHistoryRecords] = useState<MatchHistoryRecord[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const [botChipsWarning, setBotChipsWarning] = useState<string | null>(null);
+  const [notificationPermission, setNotificationPermission] = useState<string>(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      return Notification.permission;
+    }
+    return 'default';
+  });
+
+  const requestNotificationPermission = async () => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      try {
+        const perm = await Notification.requestPermission();
+        setNotificationPermission(perm);
+        if (perm === 'granted') {
+          new Notification('Chess Dungeon Notifications Enabled!', {
+            body: 'You will now receive push notifications when opponents challenge you.',
+            icon: '/favicon.ico'
+          });
+        }
+      } catch (err) {}
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const client = getChessClient();
+    const user = client.getCurrentUser();
+    if (!user || user.isAnonymous || !user.username) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const notifs = await client.getNotificationsForUser(user.username);
+        if (notifs.length > 0 && 'Notification' in window && Notification.permission === 'granted') {
+          const latest = notifs[0];
+          new Notification(`New Challenge from ${latest.challengerName}!`, {
+            body: `Staked: ${latest.stake} ${latest.currency}. Click to accept!`,
+            icon: '/favicon.ico'
+          });
+        }
+      } catch (_) {}
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentUser]);
 
   const refreshData = useCallback(async () => {
     if (typeof window === 'undefined') return;
@@ -227,6 +270,26 @@ function HomePageContent() {
 
       {/* Main Content Area */}
       <main className="px-5 py-4 flex-1">
+        {currentUser && !currentUser.isAnonymous && notificationPermission === 'default' && (
+          <div className="mb-5 bg-gradient-to-r from-rose-600 to-red-700 text-white p-4 rounded-2xl shadow-lg flex items-center justify-between animate-in fade-in duration-300">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl shrink-0">
+                <i className="fa-solid fa-bell"></i>
+              </div>
+              <div>
+                <h4 className="text-xs font-black uppercase tracking-wider">Enable Push Notifications</h4>
+                <p className="text-[11px] text-rose-100 font-bold leading-tight mt-0.5">Stay alerted when opponents challenge you in real time.</p>
+              </div>
+            </div>
+            <button
+              onClick={requestNotificationPermission}
+              className="bg-white text-rose-700 hover:bg-rose-50 px-3.5 py-2 rounded-xl font-black text-xs uppercase tracking-wider transition shrink-0 shadow-md cursor-pointer active:scale-95"
+            >
+              Turn On
+            </button>
+          </div>
+        )}
+
         {/* Game Modes Selection */}
         <div className="grid grid-cols-3 gap-3 mb-5">
           {/* Chips Card */}

@@ -1081,6 +1081,20 @@ export class ChessDungeonClient {
     }
     return this.currentUser;
   }
+
+  async getNotificationsForUser(username: string): Promise<any[]> {
+    try {
+      const res = await fetch(`${this.apiRoot}/notifications`);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          const lower = username.toLowerCase().trim();
+          return data.filter((n: any) => n.targetUsername === lower && n.status === 'pending');
+        }
+      }
+    } catch (_) {}
+    return [];
+  }
 }
 
 let globalClient: ChessDungeonClient | null = null;
