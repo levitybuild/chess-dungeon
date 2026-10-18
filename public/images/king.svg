@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- King Chess Piece: Solid Black Fill, Grey Outline Trace, Transparent Background -->
+  <g fill="#111111" stroke="#808080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Cross on Top -->
+    <path d="M 47 9 L 53 9 L 53 14 L 58 14 L 58 19 L 53 19 L 53 25 L 47 25 L 47 19 L 42 19 L 42 14 L 47 14 Z" />
+    <!-- Crown Dome & Trim -->
+    <path d="M 32 37 C 32 23 68 23 68 37 C 62 40 38 40 32 37 Z" />
+    <path d="M 30 37 L 70 37 L 68 41 L 32 41 Z" />
+    <!-- Column & Rings -->
+    <path d="M 34 41 C 38 52 38 60 35 68 L 65 68 C 62 60 62 52 66 41 Z" />
+    <path d="M 33 68 L 67 68 L 68 72 L 32 72 Z" />
+    <!-- Base -->
+    <path d="M 28 72 C 26 78 24 82 22 87 L 78 87 C 76 82 74 78 72 72 Z" />
+    <path d="M 20 87 L 80 87 L 80 91 L 20 91 Z" />
+  </g>
+</svg>
