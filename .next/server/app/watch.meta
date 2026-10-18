@@ -1,0 +1,34 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/watch/layout,_N_T_/watch/page,_N_T_/watch"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/watch/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 160,
+            "slots": null
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/f50da9f13eeedc3de8dd10206831a627fd53509a1868855e4bd17b8427b8be82/$/watch",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/watch/page"
+    },
+    "isFallback": false
+  }
+}

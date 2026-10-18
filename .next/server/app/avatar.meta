@@ -1,0 +1,34 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/avatar/layout,_N_T_/avatar/page,_N_T_/avatar"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/avatar/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 160,
+            "slots": null
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/072d5c702f2cf2279743c0912f4704798a31411186e6da438d3444b3e050286d/$/avatar",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/avatar/page"
+    },
+    "isFallback": false
+  }
+}

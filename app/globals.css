@@ -1,0 +1,469 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  html,
+  body {
+    background-color: #ffffff;
+    color: #111111;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: #111111;
+    color: #ffffff;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* =========================================================
+   AVATAR SYSTEM & STAGE STYLES
+   ========================================================= */
+#created {
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  height: 300px;
+  max-height: calc(100vw - 32px);
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#created svg,
+.bot-avatar-display svg,
+.player-avatar-stage svg,
+.piercing-winner-stage svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bot-avatar-display {
+  width: min(24vh, 180px);
+  height: min(24vh, 180px);
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.player-avatar-stage {
+  width: min(24vh, 180px);
+  height: min(24vh, 180px);
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Natural eyelid clip-path blinking animation */
+@keyframes eyelidClipBlink {
+  0%, 88%, 94%, 100% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+  91% {
+    clip-path: inset(42.5% 0% 56.5% 0%);
+  }
+}
+
+.bot-avatar-display svg#eyes,
+.player-avatar-stage svg#eyes {
+  clip-path: inset(0% 0% 0% 0%);
+  animation: eyelidClipBlink 4.2s ease-in-out infinite;
+  transform: none !important;
+}
+
+/* Subtle crimson tint on captures */
+.capture-crimson-tint svg#eyes circle,
+.capture-crimson-tint svg#eyes path,
+.capture-crimson-tint svg#eyes polygon {
+  fill: #8a0c16 !important;
+  filter: drop-shadow(0 0 3px rgba(201, 2, 15, 0.5)) !important;
+  transition: fill 0.25s ease, filter 0.25s ease;
+}
+
+/* Straight path to win: crimson with very light glow */
+.straight-path-glow svg#eyes circle,
+.straight-path-glow svg#eyes path,
+.straight-path-glow svg#eyes polygon {
+  fill: #c9020f !important;
+  filter: drop-shadow(0 0 3px rgba(201, 2, 15, 0.7)) drop-shadow(0 0 6px rgba(201, 2, 15, 0.35)) !important;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+/* Checkmate sequence: Loser avatar dimmed */
+.loser-dimmed {
+  opacity: 0.12 !important;
+  filter: grayscale(1) brightness(0.2) !important;
+  transition: opacity 0.55s ease, filter 0.55s ease !important;
+}
+
+/* Checkmate sequence: Winner's avatar pierces through */
+.winner-piercing {
+  z-index: 1050 !important;
+  position: relative !important;
+}
+
+.piercing-crimson-eyes svg#eyes circle,
+.piercing-crimson-eyes svg#eyes path,
+.piercing-crimson-eyes svg#eyes polygon {
+  fill: #ff1c30 !important;
+  filter: drop-shadow(0 0 4px #ff0019) drop-shadow(0 0 12px #c9020f) !important;
+}
+
+.piercing-crimson-eyes svg#eyes {
+  animation: none !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+.piercing-winner-stage {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.piercing-winner-stage svg:not(#eyes) {
+  filter: brightness(0.25) contrast(1.3);
+  opacity: 0.82;
+}
+
+.piercing-winner-stage svg#eyes {
+  z-index: 1050;
+  opacity: 1 !important;
+  clip-path: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.piercing-winner-stage svg#eyes circle,
+.piercing-winner-stage svg#eyes path,
+.piercing-winner-stage svg#eyes polygon {
+  fill: #ff0d25 !important;
+  fill-opacity: 1 !important;
+  filter: drop-shadow(0 0 5px #ff0019) drop-shadow(0 0 14px #c9020f) drop-shadow(0 0 28px #ff2b40) !important;
+}
+
+/* Horizontal Anamorphic Eye Flare */
+.horizontal-eye-flare {
+  position: absolute;
+  top: 42.5%;
+  height: 4px;
+  width: 280px;
+  background: linear-gradient(90deg, 
+    rgba(201, 2, 15, 0) 0%, 
+    rgba(201, 2, 15, 0.5) 15%, 
+    #ff1e32 45%, 
+    #ffffff 50%, 
+    #ff1e32 55%, 
+    rgba(201, 2, 15, 0.5) 85%, 
+    rgba(201, 2, 15, 0) 100%
+  );
+  box-shadow: 
+    0 0 8px #ff1e32,
+    0 0 18px #c9020f,
+    0 0 35px rgba(255, 30, 50, 0.95);
+  transform: translate(-50%, -50%) scaleX(0);
+  transform-origin: center center;
+  pointer-events: none;
+  z-index: 1060;
+  border-radius: 9999px;
+  animation: flareBeamExpand 0.35s cubic-bezier(0.12, 0.8, 0.32, 1) forwards, flareBeamPulse 1.4s ease-in-out infinite alternate;
+}
+
+.horizontal-eye-flare.left-flare {
+  left: 41.1%;
+}
+
+.horizontal-eye-flare.right-flare {
+  left: 58.9%;
+}
+
+@keyframes flareBeamExpand {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flareBeamPulse {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 4px #ff1e32);
+    height: 3.5px;
+  }
+  100% {
+    filter: brightness(1.4) drop-shadow(0 0 12px #ff001e);
+    height: 5.5px;
+  }
+}
+
+/* =========================================================
+   CHESSBOARD & PIECES & LEGAL MOVES (CRIMSON & BLACK)
+   ========================================================= */
+.board-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #0d0d0f;
+}
+
+.chessboard {
+  width: 100%;
+  max-width: 100vw;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border-radius: 0 !important;
+  border-top: 2.5px solid #c9020f;
+  border-bottom: 2.5px solid #c9020f;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.square {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  user-select: none;
+}
+
+/* Crimson and Pitch Black square theme */
+.square.dark {
+  background-color: #121215 !important; /* Pitch Black square */
+}
+
+.square.light {
+  background-color: #c9020f !important; /* Crimson square */
+}
+
+/* Last move highlight (deep wine crimson accent) */
+.square.highlight-last {
+  background-color: #780008 !important;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Selected piece square */
+.square.selected {
+  background-color: #e60012 !important;
+  box-shadow: inset 0 0 0 3px #ffffff, 0 0 14px rgba(230, 0, 18, 0.85) !important;
+}
+
+/* Legal Move Indicator Dot */
+.move-dot {
+  width: 28%;
+  height: 28%;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 0 8px #c9020f, 0 0 4px #ffffff;
+}
+
+/* Legal Move Capture Ring */
+.move-capture-ring {
+  width: 82%;
+  height: 82%;
+  border-radius: 9999px;
+  border: 3.5px solid #ffffff;
+  box-shadow: 0 0 10px #c9020f, inset 0 0 6px #c9020f;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+}
+
+/* Pieces */
+.piece-img {
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.45)) drop-shadow(0 3px 5px rgba(0,0,0,0.7));
+  transition: transform 0.15s ease;
+}
+
+.piece-white {
+  filter: invert(1) drop-shadow(0 0 2px rgba(0,0,0,0.65)) drop-shadow(0 3px 6px rgba(0,0,0,0.6));
+}
+
+/* Status banner notification */
+.status-banner {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1e1e24;
+  color: #ffffff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+.status-banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(4px);
+}
+
+/* Slanted Linear Typography Slam */
+.slam-line {
+  font-family: 'Nunito', -apple-system, sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.8rem, 15vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-style: italic;
+  opacity: 0;
+  transform: skewX(-14deg) translateX(-140vw);
+  will-change: transform, opacity;
+}
+
+.slam-line.slam-white {
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.45);
+}
+
+.slam-line.slam-crimson {
+  color: #c9020f;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 35px rgba(201, 2, 15, 0.85);
+}
+
+.slam-line.slam-anim {
+  animation: sharpLinearSlam 0.28s cubic-bezier(0.08, 0.95, 0.2, 1) forwards;
+}
+
+@keyframes sharpLinearSlam {
+  0% {
+    transform: skewX(-14deg) translateX(-140vw);
+    opacity: 0;
+  }
+  100% {
+    transform: skewX(-14deg) translateX(0);
+    opacity: 1;
+  }
+}
+
+.chips-award-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 22px;
+  padding: 6px 16px;
+  background: rgba(22, 18, 20, 0.9);
+  border: 1.5px solid rgba(245, 158, 11, 0.5);
+  border-radius: 9999px;
+  color: #fbbf24;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: scale(0.6) translateY(12px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 14px rgba(251, 191, 36, 0.3);
+  pointer-events: auto;
+}
+
+.chips-award-container.pop-in {
+  animation: chipPopIn 0.35s cubic-bezier(0.18, 1.3, 0.3, 1) forwards;
+}
+
+@keyframes chipPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.overlay-rematch-btn {
+  margin-top: 24px;
+  padding: 10px 24px;
+  background-color: #c9020f;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 0 #96010a;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.15s ease;
+  pointer-events: auto;
+}
+
+.overlay-rematch-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-rematch-btn:hover {
+  background-color: #e60012;
+}
+
+.overlay-rematch-btn:active {
+  box-shadow: none;
+  transform: translateY(4px);
+}

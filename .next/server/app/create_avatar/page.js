@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/create_avatar/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__196_9efe9pe44._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0r740cyzxnyz_.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0_1n4t6a0-h5a._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__04nqq67u8_79m._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1ireqd10pl8it._.js")
+R.c("server/chunks/ssr/app_not-found_tsx_1gi3i27gi6b-4._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_0p8s4lhdi0ir6._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0xky89qu.js")
+R.c("server/chunks/ssr/node_modules_next_dist_1c5t_vsn6u8fr._.js")
+R.c("server/chunks/ssr/_next-internal_server_app_create_avatar_page_actions_083x3r3zessew.js")
+R.m(33985)
+module.exports=R.m(33985).exports

@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/avatar/page": "/avatar",
+  "/create_avatar/page": "/create_avatar",
+  "/home/page": "/home",
+  "/match/page": "/match",
+  "/page": "/",
+  "/watch/page": "/watch"
+}

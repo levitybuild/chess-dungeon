@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/avatar/page": "app/avatar/page.js",
+  "/create_avatar/page": "app/create_avatar/page.js",
+  "/home/page": "app/home/page.js",
+  "/match/page": "app/match/page.js",
+  "/page": "app/page.js",
+  "/watch/page": "app/watch/page.js"
+}
